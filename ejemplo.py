@@ -3,7 +3,7 @@ import great_expectations as gx
 
 
 # Read data into pandas
-sql_query ="""select top 50 *
+sql_query = """select top 50 *
 FROM pos.DailyInventoryHistoryDetails
 order by PosDailyInventoryHistoryDetailsKey desc;"""
 dataframe = get_dataframe(sql_query)
@@ -48,15 +48,13 @@ print(validation_results["success"])
 
 # Shape expectations
 row_count_expectation = gx.expectations.ExpectTableRowCountToBeBetween(
-    min_value=198560,
-    max_value=198570
+    min_value=198560, max_value=198570
 )
 row_count_expectation = gx.expectations.ExpectTableColumnCountToEqual(
     value=dataframe.shape[1]
 )
 row_count_expectation = gx.expectations.ExpectTableColumnCountToBeBetween(
-    min_value=8,
-    max_value=10
+    min_value=8, max_value=10
 )
 
 # Column expectations
@@ -64,10 +62,10 @@ column_expectation = gx.expectations.ExpectTableColumnsToMatchSet(
     column_set=set(dataframe.columns)
 )
 column_expectation = gx.expectations.ExpectColumnToExist(
-    column="TRL"
+    column="PosDailyInventoryHistoryDetailsKey"
 )
 
-# View success status of Validation Results
+# View success status of Validation success
 print("success:", validation_results.success)
 
 # View observed value of Validation Results
