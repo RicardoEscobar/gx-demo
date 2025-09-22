@@ -11,7 +11,7 @@ server = os.getenv("DB_SERVER")
 database = os.getenv("DB_DATABASE")
 driver = os.getenv("DB_DRIVER")
 
-def get_dataset(query: str) -> pd.DataFrame:
+def get_dataframe(query: str) -> pd.DataFrame:
     # Crear cadena de conexión
     connection_string = f"mssql+pyodbc://{server}/{database}?driver={driver}&trusted_connection=yes"
 
@@ -28,5 +28,5 @@ if __name__ == "__main__":
     FROM pos.DailyInventoryHistoryDetails
     order by PosDailyInventoryHistoryDetailsKey desc;"""
     
-    df = get_dataset(query)
+    df = get_dataframe(query)
     print(df.head())
