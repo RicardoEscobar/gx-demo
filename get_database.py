@@ -8,18 +8,18 @@ load_dotenv()
 
 server = os.getenv("DB_SERVER")
 database = os.getenv("DB_DATABASE")
-username = os.getenv("DB_USERNAME")
-password = os.getenv("DB_PASSWORD")
 driver = os.getenv("DB_DRIVER")
 
 # Crear cadena de conexión
-connection_string = f"mssql+pyodbc://{username}:{password}@{server}/{database}?driver={driver}"
+connection_string = f"mssql+pyodbc://{server}/{database}?driver={driver}&trusted_connection=yes"
 
 # Crear engine con SQLAlchemy
 engine = create_engine(connection_string)
 
 # Ejemplo de query
-query = "SELECT TOP 10 * FROM TuTabla"
+query = """select top 50 *
+FROM pos.DailyInventoryHistoryDetails
+order by PosDailyInventoryHistoryDetailsKey desc;"""
 
 df = pd.read_sql(query, engine)
 
